@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Circuit Specificity Across TMS Trials</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column, one-page memo; a two-arm prediction figure as the only visual. */
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --fg: #16202c;
+  --muted: #566273;
+  --rule: #dde2e9;
+  --accent: #1f5f8b;
+  --accent-soft: #e4eef6;
+  --sham: #9a6b2f;
+  --font-display: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10161d; --surface: #161e27; --fg: #e3e8ee; --muted: #9aa6b4;
+    --rule: #2a3542; --accent: #7fb6dc; --accent-soft: #1b2b3a; --sham: #d6a565;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10161d; --surface: #161e27; --fg: #e3e8ee; --muted: #9aa6b4;
+  --rule: #2a3542; --accent: #7fb6dc; --accent-soft: #1b2b3a; --sham: #d6a565;
+  color-scheme: dark;
+}
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 15.5px; line-height: 1.6;
+}
+.page {
+  max-width: 780px; margin: 0 auto;
+  padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 30px;
+}
+header { display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--rule); padding-bottom: 22px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 4.4vw, 36px); line-height: 1.18; margin: 0; text-wrap: balance; }
+.dek { color: var(--muted); font-size: 16.5px; margin: 0; max-width: 65ch; }
+.meta { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: 20px; margin: 0 0 8px; text-wrap: balance; }
+section { display: flex; flex-direction: column; gap: 4px; }
+p { margin: 0 0 10px; max-width: 68ch; }
+ul, ol { margin: 0 0 6px; padding-left: 20px; max-width: 68ch; }
+li { margin-bottom: 6px; }
+li::marker { color: var(--muted); }
+strong { font-weight: 600; }
+.question {
+  background: var(--accent-soft); border-radius: 8px; padding: 18px 20px;
+  font-family: var(--font-display); font-size: 18.5px; line-height: 1.45; font-style: italic;
+}
+.question span { font-style: normal; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 6px; }
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+.figure svg { width: 100%; height: auto; max-width: 100%; display: block; }
+.figure .cap { font-size: 14px; color: var(--muted); min-width: 0; }
+.figure .cap p { margin-bottom: 8px; }
+.key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td:first-child { font-weight: 600; white-space: nowrap; }
+code, .mono { font-family: var(--font-mono); font-size: 13px; }
+.asks { counter-reset: ask; list-style: none; padding-left: 0; }
+.asks li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px; }
+.asks li::before { counter-increment: ask; content: counter(ask); font-family: var(--font-mono); font-size: 12px; color: var(--accent); border: 1px solid var(--accent); border-radius: 50%; width: 20px; height: 20px; display: grid; place-items: center; margin-top: 2px; }
+.refs { font-size: 13px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; }
+.refs ol { padding-left: 18px; max-width: none; }
+.refs li { margin-bottom: 3px; }
+@media (max-width: 620px) {
+  .figure { grid-template-columns: minmax(0, 1fr); }
+  td:first-child { white-space: normal; }
+}
+.back { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent); text-decoration: none; }
+.back:hover { text-decoration: underline; }
+</style>
+
+</head>
+<body>
+<div class="page">
+  <header>
+    <a class="back" href="./">← All review ideas</a>
+    <div class="eyebrow">Proposal · Systematic review &amp; meta-regression</div>
+    <h1>Does the circuit explain the effect? A sham-controlled test across every TMS depression trial</h1>
+    <p class="dek">A trial-level network meta-regression that uses each trial's own sham arm as a negative control for circuit specificity.</p>
+    <div class="meta">Draft for discussion · November 2026 · for M. D. Fox, N. Williams, J. Taylor, R. Sar-El, S. Siddiqi</div>
+  </header>
+
+  <div class="question">
+    <span>Question</span>
+    Across all sham-controlled TMS trials for depression, does the normative connectivity of each trial's stimulation site to the subgenual cingulate predict improvement in the active arm, and not in the sham arm?
+  </div>
+
+  <section>
+    <h2>Why now</h2>
+    <p>Recent results from this group's own work disagree. sgACC normative connectivity of the treatment site predicted response in routine clinical care [1]. Proximity to an individualized SGC–DLPFC target and e-field modeling did not predict outcome in another cohort [2]. The connectivity- vs scalp-based accelerated TMS RCT [3] adds a randomized comparison, which has drawn a published exchange about protocol deviations.</p>
+    <p>Individual cohorts cannot settle this. They have narrow ranges of target location, a single site and a single protocol. Published trials, by contrast, span the 5 cm rule, Beam F3, anatomical neuronavigation and connectivity-guided targets, so between-trial variation in connectivity is large. More than 100 sham-controlled RCTs are available [4]. A systematic review of sgACC connectivity as a predictor exists but does not pool data [5].</p>
+  </section>
+
+  <section>
+    <h2>The core idea: the sham arm as a negative control</h2>
+    <div class="figure">
+      <svg viewBox="0 0 300 200" role="img" aria-labelledby="figTitle figDesc">
+        <title id="figTitle">Predicted pattern</title>
+        <desc id="figDesc">Schematic: improvement rises with stronger sgACC anticorrelation in active arms and stays flat in sham arms.</desc>
+        <line x1="40" y1="165" x2="285" y2="165" stroke="var(--muted)" stroke-width="1"/>
+        <line x1="40" y1="20" x2="40" y2="165" stroke="var(--muted)" stroke-width="1"/>
+        <text x="162" y="190" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="IBM Plex Sans, sans-serif">Site–sgACC anticorrelation →</text>
+        <text x="14" y="95" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="IBM Plex Sans, sans-serif" transform="rotate(-90 14 95)">Improvement →</text>
+        <g fill="var(--accent)">
+          <circle cx="62" cy="128" r="4"/><circle cx="88" cy="118" r="4"/><circle cx="110" cy="110" r="4"/>
+          <circle cx="138" cy="96" r="4"/><circle cx="160" cy="100" r="4"/><circle cx="186" cy="80" r="4"/>
+          <circle cx="212" cy="74" r="4"/><circle cx="236" cy="58" r="4"/><circle cx="262" cy="50" r="4"/>
+        </g>
+        <line x1="55" y1="132" x2="270" y2="46" stroke="var(--accent)" stroke-width="2"/>
+        <g fill="var(--sham)">
+          <circle cx="66" cy="140" r="4"/><circle cx="92" cy="146" r="4"/><circle cx="116" cy="138" r="4"/>
+          <circle cx="142" cy="144" r="4"/><circle cx="168" cy="139" r="4"/><circle cx="190" cy="146" r="4"/>
+          <circle cx="216" cy="140" r="4"/><circle cx="240" cy="143" r="4"/><circle cx="264" cy="139" r="4"/>
+        </g>
+        <line x1="55" y1="142" x2="270" y2="142" stroke="var(--sham)" stroke-width="2" stroke-dasharray="5 4"/>
+      </svg>
+      <div class="cap">
+        <p><span class="key" style="background: var(--accent)"></span><strong>Active arms:</strong> improvement scales with how strongly the site is anticorrelated with sgACC.</p>
+        <p><span class="key" style="background: var(--sham)"></span><strong>Sham arms:</strong> same intended site, no effective stimulation. A circuit-specific effect predicts no slope here.</p>
+        <p>Schematic of the predicted pattern, not data. A slope in sham arms as well would point to confounding by trial design, era or expectation rather than circuit engagement.</p>
+      </div>
+    </div>
+    <p>Sham response in TMS depression trials is large and has grown over time [6, 7]. The aim is therefore not only to correlate connectivity with the active–sham difference, but to show the dissociation directly: an arm × connectivity interaction in a multilevel model of arm-level change.</p>
+  </section>
+
+  <section>
+    <h2>Design</h2>
+    <ul>
+      <li><strong>Eligibility.</strong> Randomized, sham-controlled trials of prefrontal rTMS or TBS (standard or accelerated) in adults with unipolar or bipolar depression. PRISMA 2020, preregistered on PROSPERO.</li>
+      <li><strong>Site per trial.</strong> Use reported MNI or Talairach coordinates where available. Otherwise, reconstruct the site from the targeting method using published group-mean coordinates for each heuristic [8]. Code connectivity-guided targets separately. Run sensitivity analyses on trials with reported coordinates only.</li>
+      <li><strong>Connectivity.</strong> Normative-connectome sgACC connectivity of each site (sphere and e-field-weighted versions), plus connectivity to the convergent depression circuit derived from lesions and stimulation sites [9].</li>
+      <li><strong>Outcomes.</strong> Arm-level standardized change on HAM-D/MADRS, plus response and remission. Where item-level data exist, dysphoric and anxiosomatic subscores as a secondary analysis.</li>
+      <li><strong>Models.</strong> Multilevel meta-regression (<code>metafor::rma.mv</code>): arm-level change ~ arm × connectivity, with trial random effects. Covariates: total pulses, sessions, accelerated vs daily, TRD status, blinding method, coil type, publication year. A contrast-level meta-regression on Hedges' g as a check. Risk of bias with RoB 2; certainty with GRADE.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Pre-specified predictions</h2>
+    <ol>
+      <li>Stronger site–sgACC anticorrelation predicts larger improvement in active arms.</li>
+      <li>The same measure does not predict improvement in sham arms (the arm × connectivity interaction is significant).</li>
+      <li>The association survives adjustment for protocol dose, accelerated delivery and publication year.</li>
+      <li>Exploratory: anxiosomatic and dysphoric change track different circuits, in trials that report item-level data.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>What each of you brings</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Who</th><th>Role in this project</th></tr></thead>
+        <tbody>
+          <tr><td>Michael D. Fox</td><td>Causal network mapping framework and normative-connectome pipeline; interpretation against lesion convergence.</td></tr>
+          <tr><td>Shan Siddiqi</td><td>Site reconstruction from scalp heuristics, symptom-specific circuits, e-field-weighted connectivity.</td></tr>
+          <tr><td>Joe Taylor</td><td>Sham and placebo design logic; symptom-specific trial data for validation.</td></tr>
+          <tr><td>Nolan Williams</td><td>Accelerated and connectivity-guided protocols (SNT); interpreting accelerated vs daily delivery as a moderator.</td></tr>
+          <tr><td>Roi Sar-El</td><td>Clinical lead for the planned follow-up paper applying the same pipeline to PTSD trials, with symptom clusters.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Feasibility and risks</h2>
+    <ul>
+      <li><strong>Scale.</strong> The most recent dose-response meta-analysis included 108 sham-controlled rTMS trials [4]. Theta-burst and accelerated trials add more.</li>
+      <li><strong>Missing coordinates.</strong> Many trials report only a targeting method. Mitigation: heuristic reconstruction, plus a coordinates-only sensitivity analysis and author queries.</li>
+      <li><strong>Ecological confounding.</strong> Trial-level associations can reflect era, population or protocol. Mitigation: sham-arm negative control, covariate adjustment and a leave-one-targeting-method-out analysis.</li>
+      <li><strong>Overlap.</strong> PubMed and PROSPERO searches (November 2026) found no trial-level, arm-level version of this analysis. Unpublished work in your labs would not show up there.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>What I am asking</h2>
+    <ol class="asks">
+      <li>Is this, or something close, already in progress in any of your labs?</li>
+      <li>Would you join as co-authors, in the roles above, and share the connectome and e-field pipeline?</li>
+      <li>Can your trial data (head-to-head, SNT, connectivity- vs scalp-based) serve as an external validation set?</li>
+    </ol>
+  </section>
+
+  <div class="refs">
+    <ol>
+      <li>Predictive value of subgenual cingulate normative connectivity to TMS treatment site for antidepressant response in routine clinical care. <i>Mol Psychiatry</i> 2026.</li>
+      <li>Proximity to an SGC–DLPFC individualized functional target and electric-field modeling do not predict clinical outcomes of rTMS. <i>Brain Stimul</i> 2026.</li>
+      <li>Connectivity- vs scalp-based targeting of accelerated TMS for depression: a randomized clinical trial. <i>JAMA Psychiatry</i> 2026.</li>
+      <li>Wang Z, et al. Acute and long-term effects of rTMS in major depressive episodes: dose-response meta-analysis of randomized sham-controlled trials. <i>BMC Med</i> 2026. doi:10.1186/s12916-026-05089-z</li>
+      <li>Demchenko I, et al. Subgenual cingulate functional connectivity predicts neuromodulation response in depression: a systematic review. <i>Biol Psychiatry Glob Open Sci</i>. doi:10.1016/j.bpsgos.2026.100823</li>
+      <li>Razza LB, et al. Placebo response to rTMS for depression trials: systematic review and meta-analysis. <i>Prog Neuropsychopharmacol Biol Psychiatry</i> 2018. doi:10.1016/j.pnpbp.2017.10.016</li>
+      <li>Xu Y, et al. Growing placebo response in TMS treatment for depression: a meta-analysis of 27-year randomized sham-controlled trials. <i>Nat Ment Health</i> 2023;1:792–809. doi:10.1038/s44220-023-00118-9</li>
+      <li>Updated scalp heuristics for localizing the dorsolateral prefrontal cortex based on convergent evidence of lesion and brain stimulation studies. <i>Brain Stimul</i> 2022.</li>
+      <li>Siddiqi SH, et al. Brain stimulation and brain lesions converge on common causal circuits in neuropsychiatric disease. <i>Nat Hum Behav</i> 2021.</li>
+    </ol>
+  </div>
+</div>
+
+</body>
+</html>

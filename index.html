@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>TMS Review Ideas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column; status pills encode open / partly open / taken. */
+:root {
+  --bg: #f7f8fa; --surface: #ffffff; --fg: #16202c; --muted: #566273; --rule: #dde2e9;
+  --accent: #1f5f8b; --accent-soft: #e4eef6;
+  --open: #1e7a4c; --open-soft: #e2f3ea; --partial: #8a6412; --partial-soft: #f6eedb; --taken: #9b3b33; --taken-soft: #f6e4e2;
+  --font-display: "IBM Plex Serif", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10161d; --surface: #161e27; --fg: #e3e8ee; --muted: #9aa6b4; --rule: #2a3542;
+    --accent: #7fb6dc; --accent-soft: #1b2b3a;
+    --open: #6fcf9b; --open-soft: #17302a; --partial: #e2bd62; --partial-soft: #332a17; --taken: #ef8f86; --taken-soft: #3a2020;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15.5px; line-height: 1.6; }
+.page { max-width: 820px; margin: 0 auto; padding-block: 40px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 34px; }
+header { display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--rule); padding-bottom: 22px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 4.4vw, 36px); line-height: 1.18; margin: 0; text-wrap: balance; }
+.dek { color: var(--muted); font-size: 16.5px; margin: 0; max-width: 65ch; }
+.meta { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: 21px; margin: 0; }
+.sub { color: var(--muted); margin: 4px 0 14px; font-size: 14.5px; max-width: 65ch; }
+.ideas { display: flex; flex-direction: column; gap: 12px; }
+.idea { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 4px 14px; }
+.idea.lead { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.letter { font-family: var(--font-mono); font-weight: 500; font-size: 15px; color: var(--accent); grid-row: span 3; padding-top: 2px; }
+.idea h3 { margin: 0; font-size: 16.5px; font-weight: 600; line-height: 1.4; }
+.idea p { margin: 0; color: var(--muted); font-size: 14.5px; max-width: 70ch; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
+.pill { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.04em; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.open { background: var(--open-soft); color: var(--open); }
+.pill.partial { background: var(--partial-soft); color: var(--partial); }
+.pill.taken { background: var(--taken-soft); color: var(--taken); }
+.pill.unchecked { background: var(--accent-soft); color: var(--accent); }
+.fit { font-size: 13px; color: var(--muted); }
+a { color: var(--accent); }
+.cta { display: inline-block; font-weight: 600; font-size: 14px; text-decoration: none; border: 1px solid var(--accent); border-radius: 6px; padding: 5px 12px; }
+.cta:hover, .cta:focus-visible { background: var(--accent-soft); }
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td:first-child { font-weight: 600; }
+.reco { background: var(--accent-soft); border-radius: 8px; padding: 16px 20px; }
+.reco p { margin: 0 0 6px; max-width: 70ch; }
+.reco p:last-child { margin: 0; }
+footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; }
+footer p { margin: 0 0 6px; max-width: 75ch; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">Working notes · TMS evidence synthesis</div>
+    <h1>Systematic review and meta-analysis ideas in TMS</h1>
+    <p class="dek">Candidate SR/MA/NMA projects, checked for duplication against PubMed and PROSPERO, ranked by novelty and fit with the Fox, Williams, Taylor, Sar-El and Siddiqi group.</p>
+    <div class="meta">Draft for discussion · Searches run 13 November 2026</div>
+  </header>
+
+  <section class="reco">
+    <p><strong>Suggested plan:</strong> lead with <strong>A</strong>, follow with <strong>B</strong> (same pipeline, applied to PTSD), and keep <strong>E</strong> as a standalone project that does not need the group's data or tools.</p>
+    <p><a class="cta" href="pitch.html">Read the one-page pitch for idea A →</a></p>
+  </section>
+
+  <section>
+    <h2>Circuit and network ideas</h2>
+    <p class="sub">Built on the group's causal network mapping, symptom-specific targeting and accelerated TMS work.</p>
+    <div class="ideas">
+      <article class="idea lead">
+        <div class="letter">A</div>
+        <h3>Trial-level network meta-regression of sham-controlled depression RCTs</h3>
+        <p>Does normative connectivity of each trial's stimulation site to the subgenual cingulate predict improvement in active arms, using sham arms as a negative control? Tests a disagreement in the group's own 2026 papers across about 100 trials.</p>
+        <div class="row"><span class="pill open">Open</span><span class="fit">Fits all five · no trial-level, arm-level version found</span><a href="pitch.html">Pitch</a></div>
+      </article>
+      <article class="idea">
+        <div class="letter">B</div>
+        <h3>Network localization of TMS sites for PTSD, by symptom cluster</h3>
+        <p>The same pipeline applied to PTSD trials (re-experiencing, avoidance, hyperarousal, negative mood), with convergence against lesion data and Sar-El as clinical lead.</p>
+        <div class="row"><span class="pill partial">Partly open</span><span class="fit">About 15 PTSD efficacy reviews registered, none with network mapping · may already be underway in the Fox/Siddiqi labs</span></div>
+      </article>
+      <article class="idea">
+        <div class="letter">C</div>
+        <h3>Symptom-specific circuits across trials</h3>
+        <p>Dysphoric vs anxiosomatic improvement as a function of target connectivity, pooling individual patient data from the group's head-to-head and SNT trials.</p>
+        <div class="row"><span class="pill partial">Partly open</span><span class="fit">Done in single cohorts (Siddiqi 2020; Kaster 2023) · depends on data sharing</span></div>
+      </article>
+      <article class="idea">
+        <div class="letter">D</div>
+        <h3>Non-prefrontal ("posterior") TMS targets across disorders</h3>
+        <p>Efficacy of occipital, parietal, TPJ and cerebellar targets, and whether effective posterior sites engage the same circuits as effective prefrontal sites.</p>
+        <div class="row"><span class="pill unchecked">Not checked in PROSPERO</span><span class="fit">Builds on Taylor, <i>Nat Ment Health</i> 2025</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Other open ideas</h2>
+    <p class="sub">Independent of the group's methods.</p>
+    <div class="ideas">
+      <article class="idea">
+        <div class="letter">E</div>
+        <h3>Component network meta-analysis of TMS add-ons in depression</h3>
+        <p>Which add-on adds to TMS (SSRI vs SNRI, antipsychotic augmentation, psychotherapy), and are the effects additive? Pilot search estimates 70–100 RCTs; antidepressant data are dense, psychotherapy data are thin.</p>
+        <div class="row"><span class="pill open">Open</span><span class="fit">No published or registered cNMA in depression · needs Chinese databases</span></div>
+      </article>
+      <article class="idea">
+        <div class="letter">F</div>
+        <h3>Sham response or blinding in neurological TMS</h3>
+        <p>Tinnitus, Alzheimer's disease and MCI, multiple sclerosis and aphasia. Psychiatry, pain, stroke and Parkinson's disease are already covered.</p>
+        <div class="row"><span class="pill partial">Partly open</span><span class="fit">Narrower scope</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Checked and ruled out</h2>
+    <p class="sub">Already published or registered.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Idea</th><th>What already exists</th></tr></thead>
+        <tbody>
+          <tr><td>Sham response across TMS trials</td><td>Xu et al. 2023, <i>Nature Mental Health</i>; about 10 reviews registered in PROSPERO (2024–2026)</td></tr>
+          <tr><td>Blinding integrity in TMS trials</td><td>Registered 2026 (CRD420261386325)</td></tr>
+          <tr><td>Targeting-method NMA</td><td>Wang 2025; Terao &amp; Kodama 2025; 5+ further registrations</td></tr>
+          <tr><td>Dose-response / MBNMA in depression</td><td>At least 6 published, including Wang Z 2026 (<i>BMC Med</i>, 108 trials); rTMS parameters NMA in progress (CRD420261560736)</td></tr>
+          <tr><td>Suicidal ideation</td><td>More than 20 registrations; 3 meta-analyses published in 2026</td></tr>
+          <tr><td>Biomarker predictors of response</td><td>Several reviews completed (e.g. CRD42022346262)</td></tr>
+          <tr><td>Durability after an acute course</td><td>Partly covered: Chen 2023 follow-up meta-analysis; iTBS durability review ongoing</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Not yet checked for duplication</h2>
+    <ul>
+      <li>Safety of high-dose and accelerated protocols (seizures, switch to mania); one related registration on conventional rTMS adverse events</li>
+      <li>Cerebellar TMS across indications</li>
+      <li>Functional, quality-of-life and cognitive outcomes in TMS depression trials</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Method: PubMed and Crossref searches, PROSPERO title-field searches and a ClinicalTrials.gov query, all run on 13 November 2026. Screening was at title and abstract level; full texts were not read.</p>
+    <p>"Open" means nothing matching was found in these sources. Unpublished work in progress, or reviews registered elsewhere (e.g. OSF), would not show up.</p>
+  </footer>
+</div>
+</body>
+</html>
