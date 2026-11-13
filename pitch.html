@@ -108,8 +108,8 @@ code, .mono { font-family: var(--font-mono); font-size: 13px; }
 
   <section>
     <h2>Why now</h2>
-    <p>Recent results from this group's own work disagree. sgACC normative connectivity of the treatment site predicted response in routine clinical care [1]. Proximity to an individualized SGC–DLPFC target and e-field modeling did not predict outcome in another cohort [2]. The connectivity- vs scalp-based accelerated TMS RCT [3] adds a randomized comparison, which has drawn a published exchange about protocol deviations.</p>
-    <p>Individual cohorts cannot settle this. They have narrow ranges of target location, a single site and a single protocol. Published trials, by contrast, span the 5 cm rule, Beam F3, anatomical neuronavigation and connectivity-guided targets, so between-trial variation in connectivity is large. More than 100 sham-controlled RCTs are available [4]. A systematic review of sgACC connectivity as a predictor exists but does not pool data [5].</p>
+    <p>Recent results from this group's own work disagree. sgACC normative connectivity of the treatment site predicted response in a prospective multisite cohort in routine clinical practice [1]. Proximity to an individualized SGC–DLPFC target and e-field modeling did not predict outcome in treatment-resistant depression [2]. Two 2026 randomized trials compared connectivity-guided with conventional targeting of accelerated TMS [3, 4]; the first has drawn a published exchange about protocol deviations.</p>
+    <p>Individual cohorts cannot settle this. They have narrow ranges of target location, a single site and a single protocol. Published trials, by contrast, span the 5 cm rule, Beam F3, anatomical neuronavigation and connectivity-guided targets, so between-trial variation in connectivity is large. More than 100 sham-controlled RCTs are available [5]. A systematic review of sgACC connectivity as a predictor exists but does not pool data [6].</p>
   </section>
 
   <section>
@@ -141,15 +141,15 @@ code, .mono { font-family: var(--font-mono); font-size: 13px; }
         <p>Schematic of the predicted pattern, not data. A slope in sham arms as well would point to confounding by trial design, era or expectation rather than circuit engagement.</p>
       </div>
     </div>
-    <p>Sham response in TMS depression trials is large and has grown over time [6, 7]. The aim is therefore not only to correlate connectivity with the active–sham difference, but to show the dissociation directly: an arm × connectivity interaction in a multilevel model of arm-level change.</p>
+    <p>Sham response in TMS depression trials is large and has grown over time [7, 8]. The aim is therefore not only to correlate connectivity with the active–sham difference, but to show the dissociation directly: an arm × connectivity interaction in a multilevel model of arm-level change.</p>
   </section>
 
   <section>
     <h2>Design</h2>
     <ul>
       <li><strong>Eligibility.</strong> Randomized, sham-controlled trials of prefrontal rTMS or TBS (standard or accelerated) in adults with unipolar or bipolar depression. PRISMA 2020, preregistered on PROSPERO.</li>
-      <li><strong>Site per trial.</strong> Use reported MNI or Talairach coordinates where available. Otherwise, reconstruct the site from the targeting method using published group-mean coordinates for each heuristic [8]. Code connectivity-guided targets separately. Run sensitivity analyses on trials with reported coordinates only.</li>
-      <li><strong>Connectivity.</strong> Normative-connectome sgACC connectivity of each site (sphere and e-field-weighted versions), plus connectivity to the convergent depression circuit derived from lesions and stimulation sites [9].</li>
+      <li><strong>Site per trial.</strong> Use reported MNI or Talairach coordinates where available. Otherwise, reconstruct the site from the targeting method using published group-mean coordinates for each heuristic [9]. Code connectivity-guided targets separately. Run sensitivity analyses on trials with reported coordinates only.</li>
+      <li><strong>Connectivity.</strong> Normative-connectome sgACC connectivity of each site (sphere and e-field-weighted versions), plus connectivity to the convergent depression circuit derived from lesions and stimulation sites [10].</li>
       <li><strong>Outcomes.</strong> Arm-level standardized change on HAM-D/MADRS, plus response and remission. Where item-level data exist, dysphoric and anxiosomatic subscores as a secondary analysis.</li>
       <li><strong>Models.</strong> Multilevel meta-regression (<code>metafor::rma.mv</code>): arm-level change ~ arm × connectivity, with trial random effects. Covariates: total pulses, sessions, accelerated vs daily, TRD status, blinding method, coil type, publication year. A contrast-level meta-regression on Hedges' g as a check. Risk of bias with RoB 2; certainty with GRADE.</li>
     </ul>
@@ -184,7 +184,7 @@ code, .mono { font-family: var(--font-mono); font-size: 13px; }
   <section>
     <h2>Feasibility and risks</h2>
     <ul>
-      <li><strong>Scale.</strong> The most recent dose-response meta-analysis included 108 sham-controlled rTMS trials [4]. Theta-burst and accelerated trials add more.</li>
+      <li><strong>Scale.</strong> The most recent dose-response meta-analysis included 108 sham-controlled rTMS trials [5]. Theta-burst and accelerated trials add more.</li>
       <li><strong>Missing coordinates.</strong> Many trials report only a targeting method. Mitigation: heuristic reconstruction, plus a coordinates-only sensitivity analysis and author queries.</li>
       <li><strong>Ecological confounding.</strong> Trial-level associations can reflect era, population or protocol. Mitigation: sham-arm negative control, covariate adjustment and a leave-one-targeting-method-out analysis.</li>
       <li><strong>Overlap.</strong> PubMed and PROSPERO searches (November 2026) found no trial-level, arm-level version of this analysis. Unpublished work in your labs would not show up there.</li>
@@ -202,15 +202,16 @@ code, .mono { font-family: var(--font-mono); font-size: 13px; }
 
   <div class="refs">
     <ol>
-      <li>Predictive value of subgenual cingulate normative connectivity to TMS treatment site for antidepressant response in routine clinical care. <i>Mol Psychiatry</i> 2026.</li>
-      <li>Proximity to an SGC–DLPFC individualized functional target and electric-field modeling do not predict clinical outcomes of rTMS. <i>Brain Stimul</i> 2026.</li>
-      <li>Connectivity- vs scalp-based targeting of accelerated TMS for depression: a randomized clinical trial. <i>JAMA Psychiatry</i> 2026.</li>
-      <li>Wang Z, et al. Acute and long-term effects of rTMS in major depressive episodes: dose-response meta-analysis of randomized sham-controlled trials. <i>BMC Med</i> 2026. doi:10.1186/s12916-026-05089-z</li>
-      <li>Demchenko I, et al. Subgenual cingulate functional connectivity predicts neuromodulation response in depression: a systematic review. <i>Biol Psychiatry Glob Open Sci</i>. doi:10.1016/j.bpsgos.2026.100823</li>
-      <li>Razza LB, et al. Placebo response to rTMS for depression trials: systematic review and meta-analysis. <i>Prog Neuropsychopharmacol Biol Psychiatry</i> 2018. doi:10.1016/j.pnpbp.2017.10.016</li>
+      <li>Khosravani S, et al. Predictive value of subgenual cingulate normative connectivity to TMS treatment site for antidepressant response in routine clinical practice: a prospective, multisite cohort study. <i>Mol Psychiatry</i> 2026;31:689–700. doi:10.1038/s41380-025-03153-3</li>
+      <li>Gregory E, et al. Proximity to an SGC–DLPFC individualized functional target and electric-field modeling do not predict clinical outcomes of rTMS for treatment-resistant depression. <i>Brain Stimul</i> 2026;19:103173. doi:10.1016/j.brs.2026.103173</li>
+      <li>Taylor JJ, et al. Connectivity- vs scalp-based targeting of accelerated transcranial magnetic stimulation for depression: a randomized clinical trial. <i>JAMA Psychiatry</i> 2026;83:807–817. doi:10.1001/jamapsychiatry.2026.1100</li>
+      <li>Li M, et al. Individualized connectivity-guided versus conventional targeting of accelerated theta-burst stimulation in depression: a randomized, double-blind, parallel-design trial. <i>Am J Psychiatry</i> 2026;183:775–784. doi:10.1176/appi.ajp.20251084</li>
+      <li>Wang Z, et al. Acute and long-term effects of rTMS in major depressive episodes: a systematic review and dose-response meta-analysis of randomized sham-controlled trials. <i>BMC Med</i> 2026;24. doi:10.1186/s12916-026-05089-z</li>
+      <li>Demchenko I, et al. Subgenual cingulate functional connectivity predicts neuromodulation response in depression: a systematic review. <i>Biol Psychiatry Glob Open Sci</i> 2027;7:100823. doi:10.1016/j.bpsgos.2026.100823</li>
+      <li>Razza LB, et al. A systematic review and meta-analysis on placebo response to repetitive transcranial magnetic stimulation for depression trials. <i>Prog Neuropsychopharmacol Biol Psychiatry</i> 2018. doi:10.1016/j.pnpbp.2017.10.016</li>
       <li>Xu Y, et al. Growing placebo response in TMS treatment for depression: a meta-analysis of 27-year randomized sham-controlled trials. <i>Nat Ment Health</i> 2023;1:792–809. doi:10.1038/s44220-023-00118-9</li>
-      <li>Updated scalp heuristics for localizing the dorsolateral prefrontal cortex based on convergent evidence of lesion and brain stimulation studies. <i>Brain Stimul</i> 2022.</li>
-      <li>Siddiqi SH, et al. Brain stimulation and brain lesions converge on common causal circuits in neuropsychiatric disease. <i>Nat Hum Behav</i> 2021.</li>
+      <li>Mir-Moghtadaei A, et al. Updated scalp heuristics for localizing the dorsolateral prefrontal cortex based on convergent evidence of lesion and brain stimulation studies. <i>Brain Stimul</i> 2022;15:291–295. doi:10.1016/j.brs.2022.01.013</li>
+      <li>Siddiqi SH, et al. Brain stimulation and brain lesions converge on common causal circuits in neuropsychiatric disease. <i>Nat Hum Behav</i> 2021;5:1707–1716. doi:10.1038/s41562-021-01161-1</li>
     </ol>
   </div>
 </div>
